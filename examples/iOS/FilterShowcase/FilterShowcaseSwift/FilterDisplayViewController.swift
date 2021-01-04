@@ -6,11 +6,14 @@ let blendImageName = "WID-small.jpg"
 
 class FilterDisplayViewController: UIViewController, UISplitViewControllerDelegate {
 
-    @IBOutlet var filterSlider: UISlider?
-    @IBOutlet var filterView: RenderView?
+    @IBOutlet var filterSlider: UISlider!
+    @IBOutlet var filterView: RenderView!
+//    @IBOutlet var scrollView: UIScrollView!
     
     let videoCamera:Camera?
     var blendImage:PictureInput?
+
+    var cropOperation = CropNormalize()
 
     required init(coder aDecoder: NSCoder)
     {
@@ -26,7 +29,7 @@ class FilterDisplayViewController: UIViewController, UISplitViewControllerDelega
     }
     
     var filterOperation: FilterOperationInterface?
-    
+
     func configureView() {
         guard let videoCamera = videoCamera else {
             let errorAlertController = UIAlertController(title: NSLocalizedString("Error", comment: "Error"), message: "Couldn't initialize camera", preferredStyle: .alert)
@@ -34,23 +37,29 @@ class FilterDisplayViewController: UIViewController, UISplitViewControllerDelega
             self.present(errorAlertController, animated: true, completion: nil)
             return
         }
+//        scrollView.delegate = self
         if let currentFilterConfiguration = self.filterOperation {
             self.title = currentFilterConfiguration.titleName
-            
+
+            cropOperation.cropSizeNorm = Size(width: 1, height: 0.75)
+
             // Configure the filter chain, ending with the view
             if let view = self.filterView {
                 switch currentFilterConfiguration.filterOperationType {
                 case .singleInput:
-                    videoCamera.addTarget(currentFilterConfiguration.filter)
+                    videoCamera.addTarget(cropOperation)
+                    cropOperation.addTarget(currentFilterConfiguration.filter)
                     currentFilterConfiguration.filter.addTarget(view)
                 case .blend:
-                    videoCamera.addTarget(currentFilterConfiguration.filter)
+                    videoCamera.addTarget(cropOperation)
+                    cropOperation.addTarget(currentFilterConfiguration.filter)
                     self.blendImage = PictureInput(imageName:blendImageName)
                     self.blendImage?.addTarget(currentFilterConfiguration.filter)
                     self.blendImage?.processImage()
                     currentFilterConfiguration.filter.addTarget(view)
                 case let .custom(filterSetupFunction:setupFunction):
-                    currentFilterConfiguration.configureCustomFilter(setupFunction(videoCamera, currentFilterConfiguration.filter, view))
+                    videoCamera.addTarget(cropOperation)
+                    currentFilterConfiguration.configureCustomFilter(setupFunction(cropOperation, currentFilterConfiguration.filter, view))
                 }
                 
                 videoCamera.startCapture()
@@ -72,6 +81,36 @@ class FilterDisplayViewController: UIViewController, UISplitViewControllerDelega
             }
             
         }
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.panAction(_:)))
+        filterView?.addGestureRecognizer(panGesture)
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(self.pinchAction(_:)))
+        filterView?.addGestureRecognizer(pinchGesture)
+    }
+    private var lastPanGesturePoint: CGPoint = .zero
+    @objc func panAction(_ gesture: UIPanGestureRecognizer){
+        if gesture.state == .began{
+            lastPanGesturePoint = gesture.location(in: gesture.view)
+        }else if gesture.state == .changed{
+            let width = Float(gesture.view!.bounds.width)
+            let height = Float(gesture.view!.bounds.height)
+            let point = gesture.location(in: gesture.view)
+            let cropSizeNorm = cropOperation.cropSizeNorm
+            let dx = Float(point.x - lastPanGesturePoint.x) / (width / cropSizeNorm.width)
+            let dy = Float(point.y - lastPanGesturePoint.y) / (height / cropSizeNorm.height)
+            cropOperation.move(dx: dx, dy: dy)
+            lastPanGesturePoint = point
+        }
+    }
+
+    @objc func pinchAction(_ gesture: UIPinchGestureRecognizer){
+        if gesture.state == .changed{
+            let scale = 1 / gesture.scale
+            var point = gesture.location(in: gesture.view)
+            point.x = point.x / gesture.view!.bounds.width
+            point.y = point.y / gesture.view!.bounds.height
+            cropOperation.scale(scale: Float(scale), pivotNormInVisible: Position(Float(point.x), Float(point.y)))
+        }
+        gesture.scale = 1
     }
     
     @IBAction func updateSliderValue() {
@@ -105,3 +144,32 @@ class FilterDisplayViewController: UIViewController, UISplitViewControllerDelega
 
 }
 
+
+public extension Matrix4x4 {
+    func asTransform3D() -> CATransform3D{
+        CATransform3D(
+                m11: CGFloat(m11),
+                m12: CGFloat(m12),
+                m13: CGFloat(m13),
+                m14: CGFloat(m14),
+                m21: CGFloat(m21),
+                m22: CGFloat(m22),
+                m23: CGFloat(m23),
+                m24: CGFloat(m24),
+                m31: CGFloat(m31),
+                m32: CGFloat(m32),
+                m33: CGFloat(m33),
+                m34: CGFloat(m34),
+                m41: CGFloat(m41),
+                m42: CGFloat(m42),
+                m43: CGFloat(m43),
+                m44: CGFloat(m44)
+        )
+    }
+}
+
+extension FilterDisplayViewController: UIScrollViewDelegate{
+    public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        filterView
+    }
+}

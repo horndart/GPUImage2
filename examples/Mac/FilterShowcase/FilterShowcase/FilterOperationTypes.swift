@@ -6,7 +6,7 @@ enum FilterSliderSetting {
     case enabled(minimumValue:Float, maximumValue:Float, initialValue:Float)
 }
 
-typealias FilterSetupFunction = (Camera, ImageProcessingOperation, RenderView) -> ImageSource?
+typealias FilterSetupFunction = (ImageSource, ImageProcessingOperation, RenderView) -> ImageSource?
 
 enum FilterOperationType {
     case singleInput

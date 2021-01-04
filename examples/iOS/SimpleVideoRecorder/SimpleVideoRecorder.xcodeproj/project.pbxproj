@@ -173,6 +173,7 @@
 				TargetAttributes = {
 					BCA0C32F1CCBFFAE0034F922 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 48FK57WF4B;
 						LastSwiftMigration = 0940;
 					};
 				};
@@ -182,6 +183,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -395,7 +397,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 48FK57WF4B;
 				INFOPLIST_FILE = SimpleVideoRecorder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sunsetlakesoftware.SimpleVideoRecorder;

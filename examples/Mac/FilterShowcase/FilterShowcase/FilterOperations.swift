@@ -135,7 +135,10 @@ let filterOperations: Array<FilterOperationInterface> = [
         titleName:"Transform (2-D)",
         sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:6.28, initialValue:0.75),
         sliderUpdateCallback:{(filter, sliderValue) in
-            filter.transform = Matrix4x4(CGAffineTransform(rotationAngle:CGFloat(sliderValue)))
+            var perspectiveTransform = CATransform3DIdentity
+            perspectiveTransform = CATransform3DRotate(perspectiveTransform, CGFloat(sliderValue), 0.0, 0.0, 1.0)
+            filter.transform = Matrix4x4(perspectiveTransform)
+//            filter.transform = Matrix4x4(CGAffineTransform(rotationAngle:CGFloat(sliderValue)))
         },
         filterOperationType:.singleInput
     ),
@@ -144,12 +147,79 @@ let filterOperations: Array<FilterOperationInterface> = [
         listName:"Transform (3-D)",
         titleName:"Transform (3-D)",
         sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:6.28, initialValue:0.75),
+            sliderUpdateCallback:{(filter, sliderValue) in
+                var perspectiveTransform = CATransform3DIdentity
+                perspectiveTransform.m34 = 0.4
+                perspectiveTransform.m33 = 0.4
+                perspectiveTransform = CATransform3DScale(perspectiveTransform, 0.75, 0.75, 0.75)
+                perspectiveTransform = CATransform3DRotate(perspectiveTransform, CGFloat(sliderValue), 0.0, 1.0, 0.0)
+            filter.transform = Matrix4x4(perspectiveTransform)
+        },
+        filterOperationType:.singleInput
+    ),
+    FilterOperation(
+        filter:{TransformOperation()},
+        listName:"Transform (3-D - X)",
+        titleName:"Transform (3-D - X)",
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:6.28, initialValue:0.75),
         sliderUpdateCallback:{(filter, sliderValue) in
             var perspectiveTransform = CATransform3DIdentity
             perspectiveTransform.m34 = 0.4
             perspectiveTransform.m33 = 0.4
             perspectiveTransform = CATransform3DScale(perspectiveTransform, 0.75, 0.75, 0.75)
-            perspectiveTransform = CATransform3DRotate(perspectiveTransform, CGFloat(sliderValue), 0.0, 1.0, 0.0)
+            perspectiveTransform = CATransform3DRotate(perspectiveTransform, CGFloat(sliderValue), 1.0, 0.0, 0.0)
+            filter.transform = Matrix4x4(perspectiveTransform)
+        },
+        filterOperationType:.singleInput
+    ),
+    FilterOperation(
+        filter:{TransformOperation()},
+        listName:"Transform (Scale)",
+        titleName:"Transform (Scale)",
+        sliderConfiguration:.enabled(minimumValue:0.5, maximumValue:3.0, initialValue:1.0),
+        sliderUpdateCallback:{(filter, sliderValue) in
+            let value = CGFloat(sliderValue)
+            var perspectiveTransform = CATransform3DIdentity
+            perspectiveTransform = CATransform3DScale(perspectiveTransform, value, value, value)
+            filter.transform = Matrix4x4(perspectiveTransform)
+        },
+        filterOperationType:.singleInput
+    ),
+    FilterOperation(
+        filter:{TransformOperation()},
+        listName:"Transform (MoveX)",
+        titleName:"Transform (MoveX)",
+            sliderConfiguration:.enabled(minimumValue:-2.0, maximumValue:2.0, initialValue:0),
+        sliderUpdateCallback:{(filter, sliderValue) in
+            let value = CGFloat(sliderValue)
+            var perspectiveTransform = CATransform3DIdentity
+            perspectiveTransform = CATransform3DTranslate(perspectiveTransform, value, 0, 0)
+            filter.transform = Matrix4x4(perspectiveTransform)
+        },
+        filterOperationType:.singleInput
+    ),
+    FilterOperation(
+        filter:{TransformOperation()},
+        listName:"Transform (MoveY)",
+        titleName:"Transform (MoveY)",
+            sliderConfiguration:.enabled(minimumValue:-2.0, maximumValue:2.0, initialValue:0),
+        sliderUpdateCallback:{(filter, sliderValue) in
+            let value = CGFloat(sliderValue)
+            var perspectiveTransform = CATransform3DIdentity
+            perspectiveTransform = CATransform3DTranslate(perspectiveTransform, 0, value, 0)
+            filter.transform = Matrix4x4(perspectiveTransform)
+        },
+        filterOperationType:.singleInput
+    ),
+    FilterOperation(
+        filter:{TransformOperation()},
+        listName:"Transform (MoveZ)",
+        titleName:"Transform (MoveZ)",
+            sliderConfiguration:.enabled(minimumValue:-2.0, maximumValue:2.0, initialValue:0),
+        sliderUpdateCallback:{(filter, sliderValue) in
+            let value = CGFloat(sliderValue)
+            var perspectiveTransform = CATransform3DIdentity
+            perspectiveTransform = CATransform3DTranslate(perspectiveTransform, 0, 0, value)
             filter.transform = Matrix4x4(perspectiveTransform)
         },
         filterOperationType:.singleInput
@@ -158,8 +228,9 @@ let filterOperations: Array<FilterOperationInterface> = [
         filter:{Crop()},
         listName:"Crop",
         titleName:"Crop",
-        sliderConfiguration:.enabled(minimumValue:240.0, maximumValue:480.0, initialValue:240.0),
+        sliderConfiguration:.enabled(minimumValue:480.0, maximumValue:960.0, initialValue:480.0),
         sliderUpdateCallback:{(filter, sliderValue) in
+            filter.locationOfCropInPixels = Position(0, 0)
             filter.cropSizeInPixels = Size(width:480.0, height:sliderValue)
         },
         filterOperationType:.singleInput

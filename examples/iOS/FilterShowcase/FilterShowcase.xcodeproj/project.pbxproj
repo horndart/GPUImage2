@@ -13,7 +13,6 @@
 		BC0037C4195CA11B00B9D651 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC0037C2195CA11B00B9D651 /* Main.storyboard */; };
 		BC9E36561E525A4200B8604F /* GPUImage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC9E36511E525A3200B8604F /* GPUImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BCFB05951CBF1AAF009B2333 /* FilterOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFB05931CBF1AAF009B2333 /* FilterOperations.swift */; };
-		BCFB05961CBF1AAF009B2333 /* FilterOperationTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFB05941CBF1AAF009B2333 /* FilterOperationTypes.swift */; };
 		BCFB05981CBF1ABD009B2333 /* Assets-iOS.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCFB05971CBF1ABD009B2333 /* Assets-iOS.xcassets */; };
 		BCFB059B1CBF1ACA009B2333 /* Mask.png in Resources */ = {isa = PBXBuildFile; fileRef = BCFB05991CBF1ACA009B2333 /* Mask.png */; };
 		BCFB059C1CBF1ACA009B2333 /* WID-small.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BCFB059A1CBF1ACA009B2333 /* WID-small.jpg */; };
@@ -22,6 +21,7 @@
 		BCFB05A31CBF1AE5009B2333 /* lookup_soft_elegance_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BCFB059F1CBF1AE5009B2333 /* lookup_soft_elegance_1.png */; };
 		BCFB05A41CBF1AE5009B2333 /* lookup_soft_elegance_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BCFB05A01CBF1AE5009B2333 /* lookup_soft_elegance_2.png */; };
 		BCFB078A1CBF361A009B2333 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCFB07881CBF361A009B2333 /* LaunchScreen.storyboard */; };
+		EC13627741B1C94D173811E5 /* FilterOperationTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC136E1B82AEE1BFFBE1C840 /* FilterOperationTypes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,7 +84,6 @@
 		BC0037C3195CA11B00B9D651 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BC9E36451E525A3200B8604F /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = ../../../../framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
 		BCFB05931CBF1AAF009B2333 /* FilterOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterOperations.swift; path = ../../../Mac/FilterShowcase/FilterShowcase/FilterOperations.swift; sourceTree = "<group>"; };
-		BCFB05941CBF1AAF009B2333 /* FilterOperationTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterOperationTypes.swift; path = ../../../Mac/FilterShowcase/FilterShowcase/FilterOperationTypes.swift; sourceTree = "<group>"; };
 		BCFB05971CBF1ABD009B2333 /* Assets-iOS.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Assets-iOS.xcassets"; path = "../../../SharedAssets/Assets-iOS.xcassets"; sourceTree = "<group>"; };
 		BCFB05991CBF1ACA009B2333 /* Mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Mask.png; path = ../../../SharedAssets/Mask.png; sourceTree = "<group>"; };
 		BCFB059A1CBF1ACA009B2333 /* WID-small.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "WID-small.jpg"; path = "../../../SharedAssets/WID-small.jpg"; sourceTree = "<group>"; };
@@ -93,6 +92,7 @@
 		BCFB059F1CBF1AE5009B2333 /* lookup_soft_elegance_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lookup_soft_elegance_1.png; path = ../../../../framework/Source/Operations/LookupImages/lookup_soft_elegance_1.png; sourceTree = "<group>"; };
 		BCFB05A01CBF1AE5009B2333 /* lookup_soft_elegance_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lookup_soft_elegance_2.png; path = ../../../../framework/Source/Operations/LookupImages/lookup_soft_elegance_2.png; sourceTree = "<group>"; };
 		BCFB07891CBF361A009B2333 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EC136E1B82AEE1BFFBE1C840 /* FilterOperationTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterOperationTypes.swift; path = ../../Mac/FilterShowcase/FilterShowcase/FilterOperationTypes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				BC0037B7195CA11B00B9D651 /* FilterShowcase.app */,
+				EC136E1B82AEE1BFFBE1C840 /* FilterOperationTypes.swift */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -168,7 +169,6 @@
 			isa = PBXGroup;
 			children = (
 				BCFB05931CBF1AAF009B2333 /* FilterOperations.swift */,
-				BCFB05941CBF1AAF009B2333 /* FilterOperationTypes.swift */,
 				BC9E36451E525A3200B8604F /* GPUImage.xcodeproj */,
 			);
 			name = Operations;
@@ -209,7 +209,7 @@
 				TargetAttributes = {
 					BC0037B6195CA11B00B9D651 = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = J2U2U9GBML;
+						DevelopmentTeam = 48FK57WF4B;
 						LastSwiftMigration = 0940;
 						ProvisioningStyle = Automatic;
 					};
@@ -298,8 +298,8 @@
 				BC0037C1195CA11B00B9D651 /* FilterDisplayViewController.swift in Sources */,
 				BC0037BF195CA11B00B9D651 /* FilterListViewController.swift in Sources */,
 				BC0037BD195CA11B00B9D651 /* AppDelegate.swift in Sources */,
-				BCFB05961CBF1AAF009B2333 /* FilterOperationTypes.swift in Sources */,
 				BCFB05951CBF1AAF009B2333 /* FilterOperations.swift in Sources */,
+				EC13627741B1C94D173811E5 /* FilterOperationTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,8 +446,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J2U2U9GBML;
+				DEVELOPMENT_TEAM = 48FK57WF4B;
 				INFOPLIST_FILE = FilterShowcaseSwift/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sunsetlakesoftware.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = FilterShowcase;
@@ -463,8 +464,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J2U2U9GBML;
+				DEVELOPMENT_TEAM = 48FK57WF4B;
 				INFOPLIST_FILE = FilterShowcaseSwift/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sunsetlakesoftware.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = FilterShowcase;
