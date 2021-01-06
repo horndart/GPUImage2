@@ -1,4 +1,4 @@
-public struct Color {
+public struct Color: Equatable, Codable {
     public let redComponent:Float
     public let greenComponent:Float
     public let blueComponent:Float
